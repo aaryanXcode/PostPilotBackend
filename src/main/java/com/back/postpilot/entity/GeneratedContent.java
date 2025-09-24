@@ -59,6 +59,7 @@ public class GeneratedContent {
 
     @NotNull
     @Column(name = "is_scheduled")
+    @Builder.Default
     private Boolean isScheduled = false;
 
     @Enumerated(EnumType.STRING)
@@ -66,6 +67,7 @@ public class GeneratedContent {
     private ContentStatus status;
 
     @OneToMany(mappedBy = "generatedContent", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ContentImage> images = new ArrayList<>();
 
     @Column(name = "metadata", columnDefinition = "TEXT")
