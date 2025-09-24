@@ -19,7 +19,6 @@ import com.google.genai.types.GenerateImagesResponse;
 import com.google.genai.types.GeneratedImage;
 import com.google.genai.types.Image;
 import jakarta.transaction.Transactional;
-import jakarta.xml.bind.annotation.XmlType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

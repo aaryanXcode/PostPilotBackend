@@ -1,7 +1,5 @@
 package com.back.postpilot.EnumTypeConstants;
 
-import com.back.postpilot.domain.Assistance;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,13 +37,19 @@ public enum AssitanceModels {
             return lookup.get(lower);
         }
 
+        // Special handling for ChatGPT models
+        if (lower.contains("gpt") || lower.contains("chatgpt") || lower.contains("openai")) {
+            System.out.println("DEBUG: ChatGPT model detected: " + model);
+            return CHATGPT;
+        }
+
         // fallback: match by contains
         for (AssitanceModels m : values()) {
             if (lower.contains(m.key)) {
+                System.out.println("DEBUG: Contains match found: " + m);
                 return m;
             }
         }
-
         throw new IllegalArgumentException("Unsupported model: " + model);
     }
 }
