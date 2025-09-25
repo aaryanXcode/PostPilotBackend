@@ -48,4 +48,13 @@ public class PostContentService {
         return updated > 0;
     }
 
+    public boolean cancelSchedulePost(Long postId){
+        // Cancel the scheduled notification
+        postSchedulerService.cancelScheduledPost(postId);
+        
+        // Set scheduledAt to null and isScheduled to false
+        int updated = generatedContentRepository.cancelSchedule(postId);
+        return updated > 0;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.back.postpilot.controller;
 
 import com.back.postpilot.DTO.GenerateContentDTO;
 import com.back.postpilot.DTO.ScheduleRequestDTO;
+import com.back.postpilot.DTO.CancelScheduleRequestDTO;
 import com.back.postpilot.entity.GeneratedContent;
 import com.back.postpilot.service.PostContentService;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +66,7 @@ public class PostContentController {
     }
 
     @PostMapping("/schedule")
-    @PreAuthorize("hasRole('ADMIN') OR hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('SUPER_ADMIN') OR hasRole('USER')")
     public ResponseEntity<String> schedulePost(@RequestBody ScheduleRequestDTO request) {
         boolean isScheduled = postContentService.setSchedulePost(request);
         if (isScheduled) {
@@ -73,6 +74,26 @@ public class PostContentController {
                     "Post " + request.id() + " scheduled at " + request.dateTime()
             );
         } else {
+            return ResponseEntity.status(404).body(
+                    "No post found with id " + request.id()
+            );
+        }
+    }
+
+    @PostMapping("/schedule/cancel")
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('SUPER_ADMIN') OR hasRole('USER')")
+    public ResponseEntity<String> cancelSchedule(@RequestBody CancelScheduleRequestDTO request) {
+        log.info("=== CANCEL SCHEDULE API CALL STARTED ===");
+        log.info("Cancelling schedule for post ID: {}", request.id());
+        
+        boolean isCancelled = postContentService.cancelSchedulePost(request.id());
+        if (isCancelled) {
+            log.info("Schedule cancelled successfully for post ID: {}", request.id());
+            return ResponseEntity.ok(
+                    "Post " + request.id() + " schedule cancelled successfully"
+            );
+        } else {
+            log.warn("Failed to cancel schedule for post ID: {}", request.id());
             return ResponseEntity.status(404).body(
                     "No post found with id " + request.id()
             );

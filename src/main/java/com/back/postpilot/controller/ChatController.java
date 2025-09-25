@@ -2,6 +2,7 @@ package com.back.postpilot.controller;
 
 
 import com.back.postpilot.DTO.ChatMessageDTO;
+import com.back.postpilot.DTO.ChatHistoryDTO;
 import com.back.postpilot.DTO.PageRequestDTO;
 import com.back.postpilot.DTO.UserProfileDTO;
 import com.back.postpilot.domain.ContentGenerationRequest;
@@ -113,7 +114,25 @@ public class ChatController {
         return Arrays.stream(ContentPlatForms.values()).toList();
     }
 
-
+    @GetMapping("/history")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('USER')")
+    ResponseEntity<List<ChatHistoryDTO>> getChatHistory(@AuthenticationPrincipal UserDetails userDetails){
+        log.info("=== CHAT HISTORY API CALL STARTED ===");
+        log.info("Fetching chat history for user: {}", userDetails.getUsername());
+        
+        try {
+            UserEntity user = userDetailsService.findByUsername(userDetails.getUsername());
+            List<ChatHistoryDTO> chatHistory = chatHistoryService.getChatHistoryByUserAndRole(user.getId(), user.getRole());
+            
+            log.info("Retrieved {} chat sessions for user: {}", chatHistory.size(), userDetails.getUsername());
+            log.info("=== CHAT HISTORY API CALL COMPLETED SUCCESSFULLY ===");
+            
+            return ResponseEntity.ok(chatHistory);
+        } catch (Exception ex) {
+            log.error("Error fetching chat history for user: {}", userDetails.getUsername(), ex);
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }
 

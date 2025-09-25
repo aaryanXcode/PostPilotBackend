@@ -32,6 +32,13 @@ public interface GeneratedContentRepository extends JpaRepository<GeneratedConte
             "WHERE g.id = :id")
     int updateScheduleFalse(@Param("id") Long id);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE GeneratedContent g " +
+            "SET g.isScheduled = false, g.scheduledAt = null " +
+            "WHERE g.id = :id")
+    int cancelSchedule(@Param("id") Long id);
+
     List<GeneratedContent> findByIsScheduledTrue();
 
     Page<GeneratedContent> findByIsScheduledTrue(Pageable pageable);
