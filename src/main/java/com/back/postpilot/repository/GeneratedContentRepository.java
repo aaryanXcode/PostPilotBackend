@@ -4,6 +4,7 @@ import com.back.postpilot.DTO.ChatMessageDTO;
 import com.back.postpilot.entity.ChatSession;
 import com.back.postpilot.entity.GeneratedContent;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,5 +35,13 @@ public interface GeneratedContentRepository extends JpaRepository<GeneratedConte
     List<GeneratedContent> findByIsScheduledTrue();
 
     Page<GeneratedContent> findByIsScheduledTrue(Pageable pageable);
+
+    Page<GeneratedContent> findByChatSessionUserId(Long userId, Pageable pageable);
+
+    @Query("SELECT COUNT(g) FROM GeneratedContent g WHERE g.chatSession.userId = :userId")
+    Long countByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT g FROM GeneratedContent g WHERE g.chatSession.userId = :userId")
+    List<GeneratedContent> findAllByUserId(@Param("userId") Long userId);
 
 }

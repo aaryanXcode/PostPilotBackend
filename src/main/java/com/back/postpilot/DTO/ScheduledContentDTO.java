@@ -8,5 +8,6 @@ public record ScheduledContentDTO(
         Long chatId,
         String contentStatus,
         boolean isScheduled,
-        LocalDateTime scheduledDate
+        LocalDateTime scheduledDate,
+        String platform
 ) {}

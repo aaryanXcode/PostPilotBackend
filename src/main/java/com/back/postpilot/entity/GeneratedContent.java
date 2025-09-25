@@ -52,18 +52,21 @@ public class GeneratedContent {
     private String hashtags;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "scheduledAt")
     private LocalDateTime scheduledAt;
 
     @NotNull
-    @Column(name = "is_scheduled")
+    @Column(name = "is_scheduled", nullable = false)
+    @Builder.Default
     private Boolean isScheduled = false;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private ContentStatus status;
+    @Builder.Default
+    private ContentStatus status = ContentStatus.DRAFT;
 
     @OneToMany(mappedBy = "generatedContent", cascade = CascadeType.ALL)
     private List<ContentImage> images = new ArrayList<>();

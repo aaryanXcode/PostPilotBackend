@@ -43,7 +43,7 @@ public class ChatController {
     CustomUserDetailsService userDetailsService;
 
     @PostMapping("/content")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('USER')")
     ResponseEntity<?> getResponse(String prompt){
         try{
             return ResponseEntity.ok("done");
@@ -55,13 +55,17 @@ public class ChatController {
 
 
     @PostMapping("/assistant")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('SUPER_ADMIN') or hasRole('USER')")
     ResponseEntity<?> getResponseGemini(@RequestBody ContentGenerationRequest request){
+        log.info("=== CHAT ASSISTANT API CALL STARTED ===");
+        log.info("Request received: {}", request);
         try{
             ChatMessageDTO response = chatService.getResponse(request);
+            log.info("Chat service response generated successfully");
+            log.info("=== CHAT ASSISTANT API CALL COMPLETED SUCCESSFULLY ===");
             return ResponseEntity.ok(response);
         } catch(Exception ex){
-            log.debug(ex.getMessage());
+            log.error("Error in chat assistant endpoint", ex);
             return ResponseEntity.badRequest().body("bad Request");
         }
     }
