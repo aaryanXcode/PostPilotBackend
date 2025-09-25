@@ -19,7 +19,6 @@ import com.google.genai.types.GenerateImagesResponse;
 import com.google.genai.types.GeneratedImage;
 import com.google.genai.types.Image;
 import jakarta.transaction.Transactional;
-import jakarta.xml.bind.annotation.XmlType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -39,18 +38,21 @@ public class ChatService {
     private final GeneratedContentRepository generatedContentRepository;
     private final PlatformContentGenerationServiceFactory platformContentGenerationServiceFactory;
     private final LLMServiceFactory llmServiceFactory;
+    private final ImageOrchestrator imageOrchestrator;
     //private final PlatformContentGenerator platformContentGenerator;
 
     public ChatService(ChatSessionRepository chatSessionRepository,
                        ChatMessageRepository chatMessageRepository,
                        PlatformContentGenerationServiceFactory platformContentGenerationServiceFactory,
                        LLMServiceFactory llmServiceFactory,
-                       GeneratedContentRepository generatedContentRepository) {
+                       GeneratedContentRepository generatedContentRepository,
+                       ImageOrchestrator imageOrchestrator) {
         this.chatSessionRepository = chatSessionRepository;
         this.chatMessageRepository = chatMessageRepository;
         this.platformContentGenerationServiceFactory = platformContentGenerationServiceFactory;
         this.llmServiceFactory = llmServiceFactory;
         this.generatedContentRepository = generatedContentRepository;
+        this.imageOrchestrator = imageOrchestrator;
         //this.platformContentGenerator = platformContentGenerator;
     }
 
@@ -99,12 +101,16 @@ public class ChatService {
         GeneratedContent generatedContent = platformContentGenerationService.generateContent(request, llmService, session, aiResponse);
 
 
-        //image if required
-
-        //save content
+        // save content first
         GenerateContentDTO generatedContentDTO = null;
         if(generatedContent!=null) {
             GeneratedContent savedContent = generatedContentRepository.save(generatedContent);
+
+            // image if required by content type
+            if (request.getContentType() == ContentType.IMAGE || request.getContentType() == ContentType.CAROUSEL) {
+                imageOrchestrator.generateAndPersistImages(request, savedContent);
+                savedContent = generatedContentRepository.save(savedContent);
+            }
 
             //add in chatMessageDTO
              generatedContentDTO = GenerateContentDTO.builder()
