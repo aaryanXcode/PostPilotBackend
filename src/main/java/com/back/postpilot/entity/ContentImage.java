@@ -39,6 +39,9 @@ public class ContentImage {
     @Column(name = "file_size", length = 64)
     private String fileSize;
 
+    @Column(name = "image_data", columnDefinition = "TEXT")
+    private String imageData;
+
     @Column(name = "generated_at")
     private LocalDateTime generatedAt;
 }
