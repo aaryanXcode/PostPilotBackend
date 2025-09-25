@@ -3,6 +3,7 @@ package com.back.postpilot.entity;
 import com.back.postpilot.EnumTypeConstants.ContentPlatForms;
 import com.back.postpilot.EnumTypeConstants.ContentStatus;
 import com.back.postpilot.EnumTypeConstants.ContentType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +29,12 @@ public class GeneratedContent {
 
     @OneToOne
     @JoinColumn(name = "chat_message_id")
+    @JsonIgnore
     private ChatMessage chatMessage;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_session_id")
+    @JsonIgnore
     private ChatSession chatSession;
 
     @Enumerated(EnumType.STRING)

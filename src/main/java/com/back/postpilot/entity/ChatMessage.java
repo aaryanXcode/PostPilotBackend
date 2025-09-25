@@ -1,6 +1,7 @@
 package com.back.postpilot.entity;
 
 import com.back.postpilot.EnumTypeConstants.MessageType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
@@ -19,6 +20,7 @@ public class ChatMessage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_session_id")
+    @JsonIgnore
     private ChatSession chatSession;
 
     @Enumerated(EnumType.STRING)
