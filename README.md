@@ -1,57 +1,64 @@
 # PostPilot - AI-Powered Content Generation & Social Media Management Platform
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
-[![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.1-purple.svg)](https://spring.io/projects/spring-ai)
+[ ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[ ![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/)
+[ ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
+[ ![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.1-purple.svg)](https://spring.io/projects/spring-ai)
 
 PostPilot is a comprehensive AI-powered content generation and social media management platform that leverages multiple Large Language Models (LLMs) to create, schedule, and analyze social media content across various platforms.
 
 ## 🚀 Features
 
 ### 🤖 Multi-LLM Content Generation
-- **ChatGPT Integration** (Azure OpenAI & OpenAI)
-- **Google Gemini** (Vertex AI)
-- **Anthropic Claude**
-- **Ollama** (Local LLM support)
-- **Fallback mechanisms** for high availability
+
+* **ChatGPT Integration** (Azure OpenAI & OpenAI)
+* **Google Gemini** (Vertex AI)
+* **Anthropic Claude**
+* **Ollama** (Local LLM support)
+* **Fallback mechanisms** for high availability
 
 ### 📱 Social Media Platform Support
-- **LinkedIn** (Full OAuth integration)
-- **Twitter/X** (Planned)
-- **Facebook** (Planned)
-- **Instagram** (Planned)
+
+* **LinkedIn** (Full OAuth integration)
+* **Twitter/X** (Planned)
+* **Facebook** (Planned)
+* **Instagram** (Planned)
 
 ### 🎨 AI Image Generation
-- **Azure OpenAI DALL-E** integration
-- **A4F.co** image generation
-- **Bytez** fallback service
-- **Dual storage** (disk + database)
-- **Image gallery** with search and filtering
+
+* **Azure OpenAI DALL-E** integration
+* **A4F.co** image generation
+* **Bytez** fallback service
+* **Dual storage** (disk + database)
+* **Image gallery** with search and filtering
 
 ### 💬 Intelligent Chat System
-- **Session-based conversations**
-- **Chat history** with pagination
-- **Real-time messaging** via WebSocket
-- **Context-aware responses**
+
+* **Session-based conversations**
+* **Chat history** with pagination
+* **Real-time messaging** via WebSocket
+* **Context-aware responses**
 
 ### 📊 Analytics & Insights
-- **LinkedIn post metrics** (impressions, clicks, likes, comments, shares)
-- **Engagement rate calculations**
-- **Performance dashboards**
-- **Historical data tracking**
+
+* **LinkedIn post metrics** (impressions, clicks, likes, comments, shares)
+* **Engagement rate calculations**
+* **Performance dashboards**
+* **Historical data tracking**
 
 ### 🔐 Security & Authentication
-- **JWT-based authentication**
-- **Role-based access control** (USER, ADMIN, SUPER_ADMIN)
-- **OAuth 2.0** for social platforms
-- **CORS configuration**
+
+* **JWT-based authentication**
+* **Role-based access control** (USER, ADMIN, SUPER_ADMIN)
+* **OAuth 2.0** for social platforms
+* **CORS configuration**
 
 ### 📅 Content Management
-- **Content scheduling**
-- **Draft management**
-- **Content status tracking**
-- **Bulk operations**
+
+* **Content scheduling**
+* **Draft management**
+* **Content status tracking**
+* **Bulk operations**
 
 ## 🏗️ Technical Architecture
 
@@ -172,6 +179,7 @@ sequenceDiagram
 ## 📋 API Documentation
 
 ### Authentication Endpoints
+
 ```
 POST /auth/login          - User login
 POST /auth/register       - User registration
@@ -179,6 +187,7 @@ POST /auth/refresh        - Token refresh
 ```
 
 ### Chat & Content Generation
+
 ```
 POST /chat/assistant      - Generate content with AI
 GET  /chat/{sessionId}/messages - Get chat history
@@ -186,6 +195,7 @@ GET  /chat/create/session - Create new chat session
 ```
 
 ### Content Management
+
 ```
 POST /content/post        - Post content to social media
 POST /content/schedule    - Schedule content posting
@@ -194,6 +204,7 @@ GET  /generated-content   - Get all generated content
 ```
 
 ### Image Management
+
 ```
 GET  /api/images         - Get all images (paginated)
 GET  /api/images/all     - Get all images (simple)
@@ -205,6 +216,7 @@ GET  /api/images/tags    - Get images by tag
 ```
 
 ### Analytics
+
 ```
 GET  /api/analytics/linkedin/posts/{postId} - Get LinkedIn post metrics
 GET  /api/analytics/linkedin/user          - Get user analytics
@@ -212,6 +224,7 @@ GET  /api/analytics/linkedin/dashboard     - Get analytics dashboard
 ```
 
 ### Supported Models & Platforms
+
 ```
 GET  /api/supported/models     - Get active AI models
 GET  /api/supported/platforms  - Get supported platforms
@@ -220,38 +233,44 @@ GET  /api/supported/platforms  - Get supported platforms
 ## 🛠️ Technology Stack
 
 ### Backend
-- **Java 21** - Programming language
-- **Spring Boot 3.5.5** - Application framework
-- **Spring Security** - Authentication & authorization
-- **Spring Data JPA** - Data persistence
-- **Spring AI 1.0.1** - AI/LLM integration
-- **PostgreSQL** - Primary database
-- **PGVector** - Vector database for embeddings
+
+* **Java 21** - Programming language
+* **Spring Boot 3.5.5** - Application framework
+* **Spring Security** - Authentication & authorization
+* **Spring Data JPA** - Data persistence
+* **Spring AI 1.0.1** - AI/LLM integration
+* **PostgreSQL** - Primary database
+* **PGVector** - Vector database for embeddings
 
 ### AI/ML Integration
-- **Azure OpenAI** - ChatGPT & DALL-E
-- **Google Vertex AI** - Gemini models
-- **Anthropic Claude** - Claude models
-- **Ollama** - Local LLM support
+
+* **Azure OpenAI** - ChatGPT & DALL-E
+* **Google Vertex AI** - Gemini models
+* **Anthropic Claude** - Claude models
+* **Ollama** - Local LLM support
 
 ### Image Generation
-- **Azure OpenAI DALL-E** - Primary image generation
-- **A4F.co** - Alternative image generation
-- **Bytez** - Fallback image service
+
+* **Azure OpenAI DALL-E** - Primary image generation
+* **A4F.co** - Alternative image generation
+* **Bytez** - Fallback image service
 
 ### External Integrations
-- **LinkedIn API** - Social media posting & analytics
-- **OAuth 2.0** - Social platform authentication
+
+* **LinkedIn API** - Social media posting & analytics
+* **OAuth 2.0** - Social platform authentication
 
 ### Development Tools
-- **Maven** - Build tool
-- **Lombok** - Code generation
-- **JWT** - Token-based authentication
-- **WebSocket** - Real-time communication
+
+* **Maven** - Build tool
+* **Lombok** - Code generation
+* **JWT** - Token-based authentication
+* **WebSocket** - Real-time communication
 
 ## ⚙️ Configuration
 
 ### Environment Variables
+
 Create a `config.properties` file with the following variables:
 
 ```properties
@@ -279,6 +298,7 @@ BYTEZ_KEY=your_bytez_key
 ```
 
 ### Database Configuration
+
 ```properties
 # PostgreSQL Configuration
 spring.datasource.url=jdbc:postgresql://localhost:5432/post_pilot
@@ -288,6 +308,7 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 ### Image Storage Configuration
+
 ```properties
 # Image Storage
 image.upload.directory=uploads/images/
@@ -297,20 +318,23 @@ image.serve.url-prefix=/api/images/serve/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Java 21** or higher
-- **Maven 3.6+**
-- **PostgreSQL 15+**
-- **Node.js 18+** (for frontend)
+
+* **Java 21** or higher
+* **Maven 3.6+**
+* **PostgreSQL 15+**
+* **Node.js 18+** (for frontend)
 
 ### Installation
 
+
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/postpilot.git
    cd postpilot
    ```
-
 2. **Configure the database**
+
    ```bash
    # Create PostgreSQL database
    createdb post_pilot
@@ -318,8 +342,8 @@ image.serve.url-prefix=/api/images/serve/
    # Run the SQL script
    psql -d post_pilot -f src/main/resources/postgres.sql
    ```
-
 3. **Configure environment variables**
+
    ```bash
    # Copy the example config
    cp config.properties.example config.properties
@@ -327,13 +351,13 @@ image.serve.url-prefix=/api/images/serve/
    # Edit with your API keys
    nano config.properties
    ```
-
 4. **Build the application**
+
    ```bash
    mvn clean compile
    ```
-
 5. **Run the application**
+
    ```bash
    mvn spring-boot:run
    ```
@@ -342,17 +366,19 @@ The application will start on `http://localhost:8080`
 
 ### Development Setup
 
+
 1. **Install dependencies**
+
    ```bash
    mvn clean install
    ```
-
 2. **Run tests**
+
    ```bash
    mvn test
    ```
-
 3. **Generate documentation**
+
    ```bash
    mvn asciidoctor:process-asciidoc
    ```
@@ -360,6 +386,7 @@ The application will start on `http://localhost:8080`
 ## 🐳 Docker Deployment
 
 ### Build Docker Image
+
 ```bash
 # Build the application
 mvn clean package
@@ -369,6 +396,7 @@ docker build -t postpilot:latest .
 ```
 
 ### Docker Compose
+
 ```yaml
 version: '3.8'
 services:
@@ -403,6 +431,7 @@ volumes:
 ## 🔧 API Usage Examples
 
 ### Generate Content
+
 ```bash
 curl -X POST http://localhost:8080/chat/assistant \
   -H "Content-Type: application/json" \
@@ -416,6 +445,7 @@ curl -X POST http://localhost:8080/chat/assistant \
 ```
 
 ### Upload Image
+
 ```bash
 curl -X POST http://localhost:8080/api/images/upload-for-content \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
@@ -425,6 +455,7 @@ curl -X POST http://localhost:8080/api/images/upload-for-content \
 ```
 
 ### Get Analytics
+
 ```bash
 curl -X GET http://localhost:8080/api/analytics/linkedin/user \
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
@@ -433,14 +464,16 @@ curl -X GET http://localhost:8080/api/analytics/linkedin/user \
 ## 📊 Database Schema
 
 ### Core Entities
-- **UserEntity** - User management and authentication
-- **ChatSession** - Chat conversation sessions
-- **ChatMessage** - Individual chat messages
-- **GeneratedContent** - AI-generated content
-- **ContentImage** - Generated and uploaded images
-- **LinkedInPostMetrics** - LinkedIn analytics data
+
+* **UserEntity** - User management and authentication
+* **ChatSession** - Chat conversation sessions
+* **ChatMessage** - Individual chat messages
+* **GeneratedContent** - AI-generated content
+* **ContentImage** - Generated and uploaded images
+* **LinkedInPostMetrics** - LinkedIn analytics data
 
 ### Entity Relationships
+
 ```mermaid
 erDiagram
     UserEntity ||--o{ ChatSession : creates
@@ -486,38 +519,44 @@ erDiagram
 ## 🔒 Security Features
 
 ### Authentication & Authorization
-- **JWT-based authentication** with configurable expiration
-- **Role-based access control** (USER, ADMIN, SUPER_ADMIN)
-- **Password encryption** using BCrypt
-- **CORS configuration** for cross-origin requests
+
+* **JWT-based authentication** with configurable expiration
+* **Role-based access control** (USER, ADMIN, SUPER_ADMIN)
+* **Password encryption** using BCrypt
+* **CORS configuration** for cross-origin requests
 
 ### API Security
-- **Request validation** using Bean Validation
-- **SQL injection prevention** via JPA
-- **XSS protection** through input sanitization
-- **Rate limiting** (configurable)
+
+* **Request validation** using Bean Validation
+* **SQL injection prevention** via JPA
+* **XSS protection** through input sanitization
+* **Rate limiting** (configurable)
 
 ### Data Protection
-- **Sensitive data encryption** in database
-- **API key management** via environment variables
-- **Secure file upload** with validation
-- **Audit logging** for security events
+
+* **Sensitive data encryption** in database
+* **API key management** via environment variables
+* **Secure file upload** with validation
+* **Audit logging** for security events
 
 ## 📈 Performance & Scalability
 
 ### Caching Strategy
-- **Redis integration** for session management
-- **Database query optimization** with JPA
-- **Image caching** for improved performance
-- **API response caching** for static data
+
+* **Redis integration** for session management
+* **Database query optimization** with JPA
+* **Image caching** for improved performance
+* **API response caching** for static data
 
 ### Monitoring & Logging
-- **Structured logging** with SLF4J
-- **Performance metrics** collection
-- **Error tracking** and alerting
-- **Health check endpoints**
+
+* **Structured logging** with SLF4J
+* **Performance metrics** collection
+* **Error tracking** and alerting
+* **Health check endpoints**
 
 ## 🤝 Contributing
+
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -526,10 +565,11 @@ erDiagram
 5. Open a Pull Request
 
 ### Development Guidelines
-- Follow Java coding standards
-- Write comprehensive tests
-- Update documentation
-- Ensure security best practices
+
+* Follow Java coding standards
+* Write comprehensive tests
+* Update documentation
+* Ensure security best practices
 
 ## 📝 License
 
@@ -538,28 +578,31 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation wiki
+
+* Create an issue in the repository
+* Contact the development team
+* Check the documentation wiki
 
 ## 🔮 Roadmap
 
 ### Upcoming Features
+
 - [ ] **Multi-language support** for content generation
 - [ ] **Advanced analytics** with machine learning insights
 - [ ] **Content templates** and reusable components
 - [ ] **Team collaboration** features
-- [ ] **Mobile application** (React Native)
 - [ ] **Advanced scheduling** with timezone support
 - [ ] **Content approval workflows**
 - [ ] **Integration with more social platforms**
 
 ### Technical Improvements
+
 - [ ] **Microservices architecture** migration
 - [ ] **Kubernetes deployment** support
 - [ ] **Advanced caching** strategies
 - [ ] **Real-time collaboration** features
 - [ ] **API versioning** implementation
+
 
 ---
 

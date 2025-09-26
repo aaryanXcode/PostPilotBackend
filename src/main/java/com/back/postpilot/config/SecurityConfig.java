@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/notifications/stream").permitAll()
                         .requestMatchers("/api/notifications/test").permitAll()
                         .requestMatchers("/api/images/**").permitAll()  // Allow image endpoints without authentication
+                        .requestMatchers("/api/news/public/**").permitAll()  // Allow public news endpoints without authentication
 
                         .anyRequest().authenticated()
                 )

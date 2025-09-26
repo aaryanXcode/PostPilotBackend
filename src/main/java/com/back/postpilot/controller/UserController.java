@@ -1,6 +1,7 @@
 package com.back.postpilot.controller;
 
 import com.back.postpilot.DTO.CreateUserRequestDTO;
+import com.back.postpilot.DTO.UpdateUserRequestDTO;
 import com.back.postpilot.DTO.UserResponseDTO;
 import com.back.postpilot.service.UserService;
 import javax.validation.Valid;
@@ -77,6 +78,53 @@ public class UserController {
                 .body("Error: " + e.getMessage());
         } catch (Exception e) {
             log.error("Unexpected error fetching user: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("An unexpected error occurred");
+        }
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserRequestDTO request) {
+        try {
+            log.info("=== UPDATE USER API CALL STARTED ===");
+            log.info("Updating user with ID: {}", id);
+            log.info("Update request: {}", request);
+            
+            UserResponseDTO updatedUser = userService.updateUser(id, request);
+            
+            log.info("User updated successfully with ID: {}", updatedUser.id());
+            return ResponseEntity.ok(updatedUser);
+            
+        } catch (IllegalArgumentException e) {
+            log.error("Error updating user: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("Error: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Unexpected error updating user: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("An unexpected error occurred");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        try {
+            log.info("=== DELETE USER API CALL STARTED ===");
+            log.info("Deleting user with ID: {}", id);
+            
+            userService.deleteUser(id);
+            
+            log.info("User deleted successfully with ID: {}", id);
+            return ResponseEntity.ok("User deleted successfully");
+            
+        } catch (IllegalArgumentException e) {
+            log.error("Error deleting user: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Error: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Unexpected error deleting user: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("An unexpected error occurred");
         }

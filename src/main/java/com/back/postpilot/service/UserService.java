@@ -1,6 +1,7 @@
 package com.back.postpilot.service;
 
 import com.back.postpilot.DTO.CreateUserRequestDTO;
+import com.back.postpilot.DTO.UpdateUserRequestDTO;
 import com.back.postpilot.DTO.UserResponseDTO;
 import com.back.postpilot.entity.Role;
 import com.back.postpilot.entity.UserEntity;
@@ -107,5 +108,74 @@ public class UserService {
             user.getName(),
             user.getRole()
         );
+    }
+
+    @Transactional
+    public UserResponseDTO updateUser(Long id, UpdateUserRequestDTO request) {
+        log.info("=== UPDATE USER API CALL STARTED ===");
+        log.info("Updating user with ID: {}", id);
+        
+        // Find the user
+        UserEntity user = userRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
+        
+        // Check if username is being changed and if it already exists
+        if (request.username() != null && !request.username().trim().isEmpty() && 
+            !user.getUsername().equals(request.username())) {
+            if (userRepository.findByUsername(request.username()).isPresent()) {
+                throw new IllegalArgumentException("Username already exists: " + request.username());
+            }
+            user.setUsername(request.username().trim());
+        }
+        
+        // Check if email is being changed and if it already exists
+        if (request.email() != null && !request.email().trim().isEmpty() && 
+            !user.getEmail().equals(request.email())) {
+            if (userRepository.findByEmail(request.email()).isPresent()) {
+                throw new IllegalArgumentException("Email already exists: " + request.email());
+            }
+            user.setEmail(request.email().trim());
+        }
+        
+        // Update other fields if provided
+        if (request.name() != null && !request.name().trim().isEmpty()) {
+            user.setName(request.name().trim());
+        }
+        
+        if (request.password() != null && !request.password().trim().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(request.password()));
+        }
+        
+        if (request.role() != null && !request.role().trim().isEmpty()) {
+            try {
+                Role role = Role.valueOf(request.role().toUpperCase());
+                user.setRole(role);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid role: " + request.role());
+            }
+        }
+        
+        UserEntity savedUser = userRepository.save(user);
+        log.info("User updated successfully with ID: {}", savedUser.getId());
+        
+        return new UserResponseDTO(
+            savedUser.getId(),
+            savedUser.getUsername(),
+            savedUser.getEmail(),
+            savedUser.getName(),
+            savedUser.getRole()
+        );
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        log.info("=== DELETE USER API CALL STARTED ===");
+        log.info("Deleting user with ID: {}", id);
+        
+        UserEntity user = userRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + id));
+        
+        userRepository.delete(user);
+        log.info("User deleted successfully with ID: {}", id);
     }
 }
