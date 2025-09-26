@@ -62,6 +62,7 @@ public class LinkedInContentGenerationService implements PlatformContentGenerati
                 - Encourages professional engagement
                 - Follows LinkedIn best practices
                 - Keeps content between 1000-3000 characters
+                - avoid markdown and markup text which is not supported by linkedin like asterisk to show bold line
                 """;
 
             case ARTICLE -> """
